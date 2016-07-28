@@ -1,7 +1,7 @@
 Jira worklog proxy
 ==================
 
-This script exposes a calendar server, all entries are worklog entries for your jira issues.
+This app gives you a calendar server, all entries represent worklog entries for your jira issues.
 Authenication is done through the jira api, there is no need to create local users.
 
 # Quick setup
