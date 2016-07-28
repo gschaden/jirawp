@@ -1,0 +1,1 @@
+ALTER TABLE calendarobjects add column jiraid text;
