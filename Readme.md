@@ -6,24 +6,34 @@ Authenication is done through the jira api, there is no need to create local use
 
 # Quick setup
 * use composer to install dependencies
+
     composer install
+    
 * copy settings.php.sample to settings.php
     * change JIRA_URL to point to your jira instance
     * change BASE_URI to reflect the location of this scripts
+    
 * create a sqlite3 db in data/db.sqlite
     * [Install db](http://sabre.io/dav/caldav/)
-    mkdir data
+    
+    mkdir data      
     cat vendor/sabre/dav/examples/sql/sqlite.* | sqlite3 data/db.sqlite
+    
     * apply patch from sql directory
+    
     cat sql/sqlite.* | sqlite3 data/db.sqlite
+    
     * make sure the webserver can write the database
+    
     chmod a+rw data/db.sqlite
+    
 * to use with apache
-    * copy htaccess to .htaccess
+    * copy htaccess.sample to .htaccess
     
 # Usage
 * For long running issues, create a calendar with description set to the jira issue key (e.g PROJ-1234)
     * create events, start time, duration and summary (description) will be set for the worklog entry
+
 * For smaller tasks 
     * create calender with description set to "OTHER"
     * create events, give them a name <jira issue key> <description>  (e.g PROJ-345 update documentation)
@@ -37,12 +47,20 @@ Authenication is done through the jira api, there is no need to create local use
      * Server Path: /<BASE_URI>/principals/<User Name> (e.g: /jirawp/principals/ges )
      * Port: leave blank     
 
+# CalDAV-Sync
+* Create CalDAV account
+    * Server: hostname/<BASE_URI>/principals/<User Name> (e.g: 192.168.0.1/jirawp/principals/ges )
+    * Username: your jira user name
+    * Password: your jira password
+    
+
 # Jira compatibility
 * 6.4
 * 7.X
 
 # Client compatibilty
 * OS X 10.10, ical 8.0
+* Android, CalDAV-Sync 0.4.27
     
 # FAQ
 ## I get an error in my client
