@@ -1,73 +1,86 @@
-Jira worklog proxy
+Jira Worklog Proxy
 ==================
 
-This app gives you a calendar server, all entries represent worklog entries for your jira issues.
-Authenication is done through the jira api, there is no need to create local users.
+This app gives you a calendar server, all entries represent worklog entries for
+your jira issues. Authentication is done through the jira api, there is no need
+to create local users.
 
-# Quick setup
-* use composer to install dependencies
+# Setup
 
-    composer install
-    
-* copy settings.php.sample to settings.php
-    * change JIRA_URL to point to your jira instance
-    * change BASE_URI to reflect the location of this scripts
-    
-* create a sqlite3 db in data/db.sqlite
-    * [Install db](http://sabre.io/dav/caldav/)
-    
-    mkdir data      
-    cat vendor/sabre/dav/examples/sql/sqlite.* | sqlite3 data/db.sqlite
-    
-    * apply patch from sql directory
-    
-    cat sql/sqlite.* | sqlite3 data/db.sqlite
-    
-    * make sure the webserver can write the database
-    
-    chmod a+rw data/db.sqlite
-    
-* to use with apache
-    * copy htaccess.sample to .htaccess
-    
+## Assemble Project
+
+```
+make assemble
+```
+
+## Environment
+
+```
+export JIRA_URL=https://my.jira.com/jira
+```
+
+## Run Server
+
+```
+make run
+```
+
 # Usage
-* For long running issues, create a calendar with description set to the jira issue key (e.g PROJ-1234)
-    * create events, start time, duration and summary (description) will be set for the worklog entry
 
-* For smaller tasks 
-    * create calender with description set to "OTHER"
-    * create events, give them a name <jira issue key> <description>  (e.g PROJ-345 update documentation)
+## Long Running Issues
 
-# OS X ical
-* Create a caldav account
-     * Account Type: Advanced 
-     * User Name: your jira login (e.g. ges)
-     * Password: your jira password 
-     * Server Address: hostname or ip of server running this application (192.168.0.1)
-     * Server Path: /<BASE_URI>/principals/<User Name> (e.g: /jirawp/principals/ges )
-     * Port: leave blank     
+For long running issues:
+
+* Create a calendar with description set to the jira issue key (e.g: **PROJ-1234**)
+* Create events, start time, duration and summary (description) will be set for the worklog entry
+
+## Small Tasks
+
+For smaller tasks:
+
+* Create calender with description set to "OTHER"
+* Create event, give them a name **jira issue key** **description**  (e.g: PROJ-345 update documentation)
+
+# OS X Calendar
+
+Create CalDAV account
+
+* Account Type: Advanced
+* User Name: your jira login (e.g. ges)
+* Password: your jira password
+* Server Address: hostname or ip of server running this application (192.168.0.1)
+* Server Path: /**BASE_URI**/principals/**User Name** (e.g: /jirawp/principals/ges )
+* Port: 80
+* SSL: no
 
 # CalDAV-Sync
-* Create CalDAV account
-    * Server: hostname/<BASE_URI>/principals/<User Name> (e.g: 192.168.0.1/jirawp/principals/ges )
-    * Username: your jira user name
-    * Password: your jira password
-    
 
-# Jira compatibility
+Create CalDAV account
+
+* Server: hostname/**BASE_URI**/principals/**User Name** (e.g: 192.168.0.1/jirawp/principals/ges )
+* Username: your jira user name
+* Password: your jira password
+
+# Jira Compatibility
+
 * 6.4
 * 7.X
 
-# Client compatibilty
+# Client Compatibilty
+
 * OS X 10.10, ical 8.0
 * Android, CalDAV-Sync 0.4.27
     
 # FAQ
+
 ## I get an error in my client
-Check the error log of the http server
+
+Check the error log of the HTTP server
 
 ## I get a forbidden exception
-Check if the issue you are trying to update is editable. You cannot log work on closed issues. 
+
+Check if the issue you are trying to update is editable. You cannot log work on closed issues.
     
-# Schema changes:
+# Schema changes
+
 > ALTER TABLE calendarobjects add column jiraid text;

@@ -1,0 +1,8 @@
+version: "2"
+services:
+    jirawp:
+        build: .
+        ports:
+            - "80:80"
+        environment:
+            JIRA_URL: ${JIRA_URL}

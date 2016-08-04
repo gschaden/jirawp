@@ -1,7 +1,7 @@
 <?php
 /* Settings */
-define("BASE_URI", "/jirawp/");
-define("JIRA_URL", "http://my.jira.com/jira");
+define("BASE_URI", $_ENV['BASE_URI'] ?: "/");
+define("JIRA_URL", $_ENV['JIRA_URL'] ?: "http://my.jira.com/jira");
 
 date_default_timezone_set('Europe/Vienna');
 
